@@ -1,11 +1,17 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
+    <h1 v-if="seen">{{ msg }}</h1>
+    <button @click="hideText">Hide Title Text</button>
+    <p v-if="seen">
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
+    <ul>
+      <li v-for="(category, index) in categories" :key="index">
+        {{ category.text }}
+      </li>
+    </ul>
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
@@ -34,9 +40,29 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+    isSeen: Boolean,
+  },
+  data() {
+    return {
+      seen: this.isSeen,
+      categories: [
+        {text: "This"},
+        {text: "Is"},
+        {text: "An"},
+        {text: "Array of Objects"}
+      ]
+    }
+  },
+  methods: {
+    hideText: function () {
+      console.log('check it out')
+      this.seen = !this.seen
+      return this.seen
+    }
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
